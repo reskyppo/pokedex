@@ -2,8 +2,10 @@
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
 import { useEffect, useState } from "react";
+import { Helmet } from "react-helmet";
 import { useParams } from "react-router-dom";
 import { useGetPokemonDetails } from "../hooks/useGetPokemonDetails";
+import { capitalizeFirstLetter } from "../utils/function";
 const Details = () => {
   const [isCached, setIsCatched] = useState<boolean>(false);
   const { name } = useParams();
@@ -34,40 +36,45 @@ const Details = () => {
     justify-content: center;
   `;
   return (
-    <Container>
-      <img
-        css={css`
-          height: 15rem;
-          width: 15rem;
-          margin: auto;
-          display: block;
-        `}
-        src={data?.pokemon?.sprites?.front_default}
-        alt={data?.pokemon?.name}
-      />
-      <Catch onClick={handleCatchPokemon}>Catch Pokemon</Catch>
-      <FlexRow>
-        {data?.pokemon?.types?.map((dtx: any) => (
-          <div
-            css={css`
-              padding: 0.5rem;
-              background-color: red; //Dynamic color soon
-              width: 4rem;
-              text-align: center;
-              color: white;
-              border-radius: 6px;
-              margin: 0rem 0.5rem;
-            `}
-          >
-            {dtx?.type?.name}
-          </div>
+    <div>
+      <Helmet>
+        <title>{capitalizeFirstLetter(name || "")} - Pokedex</title>
+      </Helmet>
+      <Container>
+        <img
+          css={css`
+            height: 15rem;
+            width: 15rem;
+            margin: auto;
+            display: block;
+          `}
+          src={data?.pokemon?.sprites?.front_default}
+          alt={data?.pokemon?.name}
+        />
+        <Catch onClick={handleCatchPokemon}>Catch Pokemon</Catch>
+        <FlexRow>
+          {data?.pokemon?.types?.map((dtx: any) => (
+            <div
+              css={css`
+                padding: 0.5rem;
+                background-color: red; //Dynamic color soon
+                width: 4rem;
+                text-align: center;
+                color: white;
+                border-radius: 6px;
+                margin: 0rem 0.5rem;
+              `}
+            >
+              {dtx?.type?.name}
+            </div>
+          ))}
+        </FlexRow>
+        <p>{data?.pokemon?.name}</p>
+        {data?.pokemon?.moves?.map((dtx: any) => (
+          <p>{dtx?.move?.name}</p>
         ))}
-      </FlexRow>
-      <p>{data?.pokemon?.name}</p>
-      {data?.pokemon?.moves?.map((dtx: any) => (
-        <p>{dtx?.move?.name}</p>
-      ))}
-    </Container>
+      </Container>
+    </div>
   );
 };
 

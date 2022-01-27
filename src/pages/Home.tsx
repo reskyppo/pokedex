@@ -1,6 +1,6 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
-
+import { Helmet } from "react-helmet";
 import PokemonCard from "../components/PokemonCard";
 import { useGetPokemonsList } from "../hooks/useGetPokemonsList";
 
@@ -36,22 +36,27 @@ const Home = () => {
   `;
 
   return (
-    <Container>
-      <Grid>
-        {sliceData?.map((result: PokemonItem) => (
-          <PokemonCard
-            name={result?.name}
-            image={result?.image}
-            url={result?.url}
-          />
-        ))}
-      </Grid>
-      {limit < 100 && (
-        <LoadMore onClick={() => setLimit(limit + 20)}>
-          <h4>Load More</h4>
-        </LoadMore>
-      )}
-    </Container>
+    <div>
+      <Helmet>
+        <title>Pokedex</title>
+      </Helmet>
+      <Container>
+        <Grid>
+          {sliceData?.map((result: PokemonItem) => (
+            <PokemonCard
+              name={result?.name}
+              image={result?.image}
+              url={result?.url}
+            />
+          ))}
+        </Grid>
+        {limit < 100 && (
+          <LoadMore onClick={() => setLimit(limit + 20)}>
+            <h4>Load More</h4>
+          </LoadMore>
+        )}
+      </Container>
+    </div>
   );
 };
 
