@@ -9,7 +9,7 @@ const getTypeColor = (type: string) => {
       case "bug":
         return "#6F7EB3";
       case "poison":
-        return "#9758B8";
+        return "#AA91C9";
       case "ground":
         return "#A9865B";
       case "electric":
