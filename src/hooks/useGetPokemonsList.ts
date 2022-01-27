@@ -2,7 +2,7 @@ import {gql,useQuery} from '@apollo/client';
 
 const GET_POKEMONS_LIST = gql`
   query GetPokemonsList{
-    pokemons(limit: 20, offset: 0) {
+    pokemons(limit: 100, offset: 0) {
       count
       next
       previous
