@@ -1,9 +1,7 @@
-import "./index.css";
-
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-
+import "./index.css"
 import reportWebVitals from "./reportWebVitals";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
