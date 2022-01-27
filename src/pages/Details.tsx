@@ -1,19 +1,33 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
+import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { useGetPokemonDetails } from "../hooks/useGetPokemonDetails";
 const Details = () => {
+  const [isCached, setIsCatched] = useState<boolean>(false);
   const { name } = useParams();
   const { data, loading, error } = useGetPokemonDetails(name || "");
   if (loading) return <p>loading</p>;
   if (error) return <p>{error?.message}</p>;
+  const handleCatchPokemon = () => {
+    const value = Math.random();
+    value > 0.5 ? setIsCatched(true) : setIsCatched(false);
+  };
   const Container = styled.div`
     background-color: #fff;
     max-width: 640px;
     margin: auto;
     min-height: 100vh;
     padding: 0rem 1rem;
+  `;
+  const Catch = styled.div`
+    background-color: #d3dedc;
+    padding: 0.25rem 0.5rem;
+    color: black;
+    width: 7rem;
+    cursor: pointer;
+    margin: 0.5rem auto;
   `;
   const FlexRow = styled.div`
     display: flex;
@@ -31,6 +45,7 @@ const Details = () => {
         src={data?.pokemon?.sprites?.front_default}
         alt={data?.pokemon?.name}
       />
+      <Catch onClick={handleCatchPokemon}>Catch Pokemon</Catch>
       <FlexRow>
         {data?.pokemon?.types?.map((dtx: any) => (
           <div
