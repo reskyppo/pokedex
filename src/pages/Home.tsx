@@ -1,20 +1,39 @@
 import { useGetPokemonsList } from "../hooks/useGetPokemonsList";
-type Props = {};
+import styled from "@emotion/styled";
+import { Link } from "react-router-dom";
 
-const Home = (props: Props) => {
+const Home = () => {
   const { data, loading, error } = useGetPokemonsList();
-  console.log("data", data.pokemons);
+  const Container = styled.div`
+    width: 100vw;
+  `;
+  const Grid = styled.div`
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+  `;
+  const Card = styled.div`
+    margin: 0.5rem;
+    text-align: center;
+  `;
+
+  const Title = styled.h4`
+    text-decoration: none;
+  `;
   return (
-    <div>
+    <Container>
       <h3>home page</h3>
-      {data?.pokemons?.results?.map((result: any) => (
-        <div>
-          <img src={result?.image} alt={result?.name} />
-          <p>{result?.name}</p>
-          <p>owned: 0</p>
-        </div>
-      ))}
-    </div>
+      <Grid>
+        {data?.pokemons?.results?.map((result: any) => (
+          <Card>
+            <Link to={`detail/${result?.name}`}>
+              <img src={result?.image} alt={result?.name} />
+              <Title>{result?.name}</Title>
+              <p>owned: 0</p>
+            </Link>
+          </Card>
+        ))}
+      </Grid>
+    </Container>
   );
 };
 
