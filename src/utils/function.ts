@@ -28,5 +28,7 @@ const getTypeColor = (type: string) => {
         return "#DBDBDB";
     }
   };
-
-  export {getTypeColor}
+  const capitalizeFirstLetter = (text: string) => {
+    return text.charAt(0).toUpperCase() + text.slice(1);
+  }
+export {getTypeColor, capitalizeFirstLetter}
