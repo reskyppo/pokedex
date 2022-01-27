@@ -5,7 +5,9 @@ import { Link } from "react-router-dom";
 const Home = () => {
   const { data, loading, error } = useGetPokemonsList();
   const Container = styled.div`
-    width: 100vw;
+    background-color: #fff;
+    max-width: 640px;
+    margin: auto;
   `;
   const Grid = styled.div`
     display: grid;
@@ -21,7 +23,6 @@ const Home = () => {
   `;
   return (
     <Container>
-      <h3>home page</h3>
       <Grid>
         {data?.pokemons?.results?.map((result: any) => (
           <Card>
