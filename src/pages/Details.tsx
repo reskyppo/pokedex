@@ -37,6 +37,7 @@ const Details = () => {
     background-color: ${getTypeColor(type)};
     max-width: 640px;
     margin: auto;
+    margin-bottom: 46px;
     min-height: 100vh;
   `;
   const MoveList = styled.div`
@@ -49,6 +50,30 @@ const Details = () => {
     border-radius: 12px;
     padding: 1rem;
     margin: 1rem 0rem;
+  `;
+  const Footer = styled.div`
+    position: fixed;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100%;
+    @media (min-width: 640px) {
+      width: 640px;
+    }
+    height: 60px;
+    border-top: 1px solid #d3dedc;
+    background: white;
+  `;
+  const Catch = styled.div`
+    border: 2px solid
+      ${getTypeColor(type) === "#DBDBDB" ? "black" : getTypeColor(type)};
+    color: ${getTypeColor(type) === "#DBDBDB" ? "black" : getTypeColor(type)};
+    margin: 8px auto;
+    width: 75%;
+    border-radius: 8px;
+    padding: 8px;
+    font-weight: bolder;
+    text-align: center;
   `;
   return (
     <div>
@@ -111,6 +136,11 @@ const Details = () => {
           ))}
         </MoveList>
       </Container>
+      <Footer>
+        <Catch onClick={() => handleCatchPokemon(dataL)}>
+          Catch the Pokemon
+        </Catch>
+      </Footer>
     </div>
   );
 };
