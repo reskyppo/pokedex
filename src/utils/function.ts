@@ -31,4 +31,10 @@ const getTypeColor = (type: string) => {
   const capitalizeFirstLetter = (text: string) => {
     return text.charAt(0).toUpperCase() + text.slice(1);
   }
-export {getTypeColor, capitalizeFirstLetter}
+const saveLocalStorage = (item: any) => {
+  const test = JSON.parse(localStorage.getItem("test") || "[]");
+  test.push(item);
+  localStorage.setItem("test", JSON.stringify(test));
+}
+
+export {getTypeColor, capitalizeFirstLetter, saveLocalStorage}
