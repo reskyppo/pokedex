@@ -13,6 +13,10 @@ type PokemonItem = {
 
 const PokemonCard = (props: PokemonItem) => {
   const { name, image } = props;
+  const dataLS = JSON.parse(localStorage.getItem("test") || "[]");
+  const owned = dataLS.filter(
+    (el: { name: string }) => el.name === name
+  ).length;
   const { data } = useGetPokemonTypes(name);
   const type = data?.pokemon?.types[0]?.type?.name;
 
@@ -63,6 +67,7 @@ const PokemonCard = (props: PokemonItem) => {
             </div>
           ))}
         </div>
+        <p>Owned : {owned}</p>
       </Link>
     </Card>
   );
