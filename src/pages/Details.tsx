@@ -92,6 +92,11 @@ const Details = () => {
     font-weight: 700;
     margin: 1rem 0rem 0.25rem 0.5rem;
   `;
+  const FlexSpaceBetween = styled.div`
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  `;
   return (
     <div>
       <Helmet>
@@ -147,23 +152,11 @@ const Details = () => {
           >
             {data?.pokemon?.stats?.map((stat: any) => (
               <div>
-                <div
-                  css={css`
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                  `}
-                >
+                <FlexSpaceBetween>
                   <p>{capitalizeFirstLetter(stat?.stat?.name)}</p>
                   <p>{stat?.base_stat}</p>
-                </div>
-                <div
-                  css={css`
-                    display: flex;
-                    justify-content: space-between;
-                    align-items: center;
-                  `}
-                >
+                </FlexSpaceBetween>
+                <FlexSpaceBetween>
                   <div
                     css={css`
                       height: 0.25rem;
@@ -180,7 +173,7 @@ const Details = () => {
                       width: ${100 - stat?.base_stat}%;
                     `}
                   ></div>
-                </div>
+                </FlexSpaceBetween>
               </div>
             ))}
           </div>
