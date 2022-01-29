@@ -43,9 +43,12 @@ const Details = () => {
     max-width: 640px;
     margin: auto;
     margin-bottom: 38px;
+    @media (min-width: 640px) {
+      margin-bottom: 0;
+    }
     min-height: 100vh;
   `;
-  const MoveList = styled.div`
+  const Body = styled.div`
     background-color: #ffffff;
     border-radius: 40px 40px 0px 0px;
     padding: 1rem;
@@ -81,6 +84,14 @@ const Details = () => {
     font-weight: bolder;
     text-align: center;
   `;
+  const Title = styled.h2`
+    margin: 0rem 0rem 2rem 0rem;
+    text-align: center;
+  `;
+  const SubTitle = styled.h3`
+    font-weight: 700;
+    margin: 1rem 0rem 0.25rem 0.5rem;
+  `;
   return (
     <div>
       <Helmet>
@@ -106,23 +117,9 @@ const Details = () => {
           src={data?.pokemon?.sprites?.front_default}
           alt={data?.pokemon?.name}
         />
-        <h2
-          css={css`
-            margin: 0rem 0rem 2rem 0rem;
-            text-align: center;
-          `}
-        >
-          {capitalizeFirstLetter(name || "")}
-        </h2>
-        <MoveList>
-          <h3
-            css={css`
-              font-weight: 700;
-              margin: 1rem 0rem 0.25rem 0.5rem;
-            `}
-          >
-            Type{data?.pokemon?.types.length > 1 && "s"}
-          </h3>
+        <Title>{capitalizeFirstLetter(name || "")}</Title>
+        <Body>
+          <SubTitle>Type{data?.pokemon?.types.length > 1 && "s"}</SubTitle>
           <div
             css={css`
               display: flex;
@@ -142,14 +139,7 @@ const Details = () => {
               </p>
             ))}
           </div>
-          <h3
-            css={css`
-              font-weight: 700;
-              margin: 1rem 0rem 0.25rem 0.5rem;
-            `}
-          >
-            Stats
-          </h3>
+          <SubTitle>Stats</SubTitle>
           <div
             css={css`
               margin: 0rem 0rem 0.5rem 0.5rem;
@@ -177,7 +167,9 @@ const Details = () => {
                   <div
                     css={css`
                       height: 0.25rem;
-                      background-color: ${getTypeColor(type)};
+                      background-color: ${getTypeColor(type) === "#DBDBDB"
+                        ? "black"
+                        : getTypeColor(type)};
                       width: ${stat?.base_stat}%;
                     `}
                   ></div>
@@ -192,23 +184,19 @@ const Details = () => {
               </div>
             ))}
           </div>
+          <SubTitle>Moves</SubTitle>
           <div
             css={css`
               display: flex;
               justify-content: space-between;
               align-items: center;
               padding: 0.5rem;
+              margin-bottom: 0.5rem;
               height: 2rem;
             `}
             onClick={() => setShowMoveList(!showMoveList)}
           >
-            <h3
-              css={css`
-                font-weight: 700;
-              `}
-            >
-              Moves
-            </h3>
+            <p>Show More</p>
             <FontAwesomeIcon
               icon={showMoveList ? faAngleUp : faAngleDown}
               size="lg"
@@ -223,7 +211,7 @@ const Details = () => {
               <MoveCard>{capitalizeFirstLetter(dtx?.move?.name)}</MoveCard>
             ))}
           </div>
-        </MoveList>
+        </Body>
       </Container>
       <Footer>
         <Catch onClick={() => handleCatchPokemon(dataL)}>
