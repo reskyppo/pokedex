@@ -19,6 +19,12 @@ const GET_POKEMON_DETAILS = gql`
           name
         }
       }
+      stats {
+        base_stat
+        stat {
+          name
+        }
+      }
     }
   }
 `
