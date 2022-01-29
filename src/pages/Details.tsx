@@ -6,7 +6,11 @@ import { Helmet } from "react-helmet";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetPokemonDetails } from "../hooks/useGetPokemonDetails";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import {
+  faArrowLeft,
+  faAngleDown,
+  faAngleUp,
+} from "@fortawesome/free-solid-svg-icons";
 import {
   capitalizeFirstLetter,
   getTypeColor,
@@ -14,6 +18,7 @@ import {
 } from "../utils/function";
 const Details = () => {
   const [isCached, setIsCatched] = useState<boolean>(false);
+  const [showMoveList, setShowMoveList] = useState<boolean>(false);
   const { name } = useParams();
   const navigate = useNavigate();
   const { data, loading, error } = useGetPokemonDetails(name || "");
@@ -37,7 +42,7 @@ const Details = () => {
     background-color: ${getTypeColor(type)};
     max-width: 640px;
     margin: auto;
-    margin-bottom: 46px;
+    margin-bottom: 38px;
     min-height: 100vh;
   `;
   const MoveList = styled.div`
@@ -45,11 +50,12 @@ const Details = () => {
     border-radius: 40px 40px 0px 0px;
     padding: 1rem;
   `;
+
   const MoveCard = styled.div`
-    background-color: ${getTypeColor(type)};
-    border-radius: 12px;
-    padding: 1rem;
-    margin: 1rem 0rem;
+    border-radius: 8px;
+    padding: 0.5rem;
+    margin: 1rem 0.5rem;
+    font-weight: 500;
   `;
   const Footer = styled.div`
     position: fixed;
@@ -83,7 +89,7 @@ const Details = () => {
       <Container>
         <FontAwesomeIcon
           icon={faArrowLeft}
-          size="2x"
+          size="lg"
           color="#ffffff"
           css={css`
             margin: 1rem 0rem 0rem 1rem;
@@ -102,38 +108,121 @@ const Details = () => {
         />
         <h2
           css={css`
-            margin: -2rem 0rem 0rem 0rem;
+            margin: 0rem 0rem 2rem 0rem;
             text-align: center;
           `}
         >
           {capitalizeFirstLetter(name || "")}
         </h2>
-        <div
-          css={css`
-            display: flex;
-            justify-content: center;
-            margin: 0.75rem 0rem;
-          `}
-        >
-          {data?.pokemon?.types?.map((type: any) => (
-            <div
+        <MoveList>
+          <h3
+            css={css`
+              font-weight: 700;
+              margin: 1rem 0rem 0.25rem 0.5rem;
+            `}
+          >
+            Type{data?.pokemon?.types.length > 1 && "s"}
+          </h3>
+          <div
+            css={css`
+              display: flex;
+            `}
+          >
+            {data?.pokemon?.types?.map((type: any) => (
+              <p
+                css={css`
+                  font-weight: 700;
+                  margin: 0.5rem 0rem 0rem 0.5rem;
+                  color: ${getTypeColor(type?.type?.name) === "#DBDBDB"
+                    ? "black"
+                    : getTypeColor(type?.type?.name)};
+                `}
+              >
+                {capitalizeFirstLetter(type?.type?.name)}
+              </p>
+            ))}
+          </div>
+          <h3
+            css={css`
+              font-weight: 700;
+              margin: 1rem 0rem 0.25rem 0.5rem;
+            `}
+          >
+            Stats
+          </h3>
+          <div
+            css={css`
+              margin: 0rem 0rem 0.5rem 0.5rem;
+            `}
+          >
+            {data?.pokemon?.stats?.map((stat: any) => (
+              <div>
+                <div
+                  css={css`
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  `}
+                >
+                  <p>{capitalizeFirstLetter(stat?.stat?.name)}</p>
+                  <p>{stat?.base_stat}</p>
+                </div>
+                <div
+                  css={css`
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                  `}
+                >
+                  <div
+                    css={css`
+                      height: 0.25rem;
+                      background-color: ${getTypeColor(type)};
+                      width: ${stat?.base_stat}%;
+                    `}
+                  ></div>
+                  <div
+                    css={css`
+                      height: 0.25rem;
+                      background-color: #d3dedc;
+                      width: ${100 - stat?.base_stat}%;
+                    `}
+                  ></div>
+                </div>
+              </div>
+            ))}
+          </div>
+          <div
+            css={css`
+              display: flex;
+              justify-content: space-between;
+              align-items: center;
+              padding: 0.5rem;
+              height: 2rem;
+            `}
+            onClick={() => setShowMoveList(!showMoveList)}
+          >
+            <h3
               css={css`
-                background-color: ${getTypeColor(type?.type?.name)};
-                margin: 0rem 0.25rem;
-                padding: 0.5rem 0.75rem;
-                border-radius: 8px;
-                border: 1px solid white;
+                font-weight: 700;
               `}
             >
-              {capitalizeFirstLetter(type?.type?.name)}
-            </div>
-          ))}
-        </div>
-        <MoveList>
-          <h3>Moves</h3>
-          {data?.pokemon?.moves?.map((dtx: any) => (
-            <MoveCard>{capitalizeFirstLetter(dtx?.move?.name)}</MoveCard>
-          ))}
+              Moves
+            </h3>
+            <FontAwesomeIcon
+              icon={showMoveList ? faAngleUp : faAngleDown}
+              size="lg"
+            />
+          </div>
+          <div
+            css={css`
+              display: ${showMoveList ? "block" : "none"};
+            `}
+          >
+            {data?.pokemon?.moves?.map((dtx: any) => (
+              <MoveCard>{capitalizeFirstLetter(dtx?.move?.name)}</MoveCard>
+            ))}
+          </div>
         </MoveList>
       </Container>
       <Footer>
