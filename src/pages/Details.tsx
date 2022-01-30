@@ -16,6 +16,7 @@ import {
   getTypeColor,
   saveLocalStorage,
 } from "../utils/function";
+import Loading from "../components/Loading";
 const Details = () => {
   const [isCached, setIsCatched] = useState<boolean>(false);
   const [isSaved, setIsSaved] = useState<boolean>(false);
@@ -26,10 +27,9 @@ const Details = () => {
   const usernameRef = useRef<HTMLInputElement>(null);
   const { name } = useParams();
   const navigate = useNavigate();
-  const { data, loading, error } = useGetPokemonDetails(name || "");
+  const { data, loading } = useGetPokemonDetails(name || "");
   const type = data?.pokemon?.types[0]?.type?.name;
-  if (loading) return <p>loading</p>;
-  if (error) return <p>{error?.message}</p>;
+  if (loading) return <Loading />;
   const handleCatchPokemon = () => {
     const value = Math.random();
     value > 0.5 ? setIsCatched(true) : setIsRunning(true);

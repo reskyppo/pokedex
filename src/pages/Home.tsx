@@ -1,6 +1,8 @@
 import styled from "@emotion/styled";
 import { useState } from "react";
 import { Helmet } from "react-helmet";
+import Loading from "../components/Loading";
+import Navigation from "../components/Navigation";
 import PokemonCard from "../components/PokemonCard";
 import { useGetPokemonsList } from "../hooks/useGetPokemonsList";
 
@@ -11,17 +13,19 @@ type PokemonItem = {
 };
 
 const Home = () => {
-  // get limit from localStorage, so user doesn't need to 
-  // load more when back from detail page 
+  // get limit from localStorage, so user doesn't need to
+  // load more when back from detail page
   const limitLS = JSON.parse(localStorage.getItem("pagination") || "20");
-  const [limit, setLimit] = useState<number>(limitLS );
+  const [limit, setLimit] = useState<number>(limitLS);
 
-  const { data } = useGetPokemonsList();
+  const { data, loading } = useGetPokemonsList();
+  if (loading) return <Loading />;
   const sliceData = data?.pokemons?.results?.slice(0, limit);
   const Container = styled.div`
     background-color: #fff;
     max-width: 640px;
     margin: auto;
+    margin-bottom: 60px;
     padding: 1rem 0rem;
   `;
   const Grid = styled.div`
@@ -63,6 +67,7 @@ const Home = () => {
             <h4>Load More</h4>
           </LoadMore>
         )}
+        <Navigation />
       </Container>
     </div>
   );
