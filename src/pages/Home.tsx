@@ -11,7 +11,10 @@ type PokemonItem = {
 };
 
 const Home = () => {
-  const [limit, setLimit] = useState<number>(20);
+  // get limit from localStorage, so user doesn't need to 
+  // load more when back from detail page 
+  const limitLS = JSON.parse(localStorage.getItem("pagination") || "20");
+  const [limit, setLimit] = useState<number>(limitLS );
 
   const { data } = useGetPokemonsList();
   const sliceData = data?.pokemons?.results?.slice(0, limit);
@@ -51,7 +54,12 @@ const Home = () => {
           ))}
         </Grid>
         {limit < 100 && (
-          <LoadMore onClick={() => setLimit(limit + 20)}>
+          <LoadMore
+            onClick={() => {
+              setLimit(limit + 20);
+              localStorage.setItem("pagination", JSON.stringify(limit + 20));
+            }}
+          >
             <h4>Load More</h4>
           </LoadMore>
         )}
