@@ -5,6 +5,7 @@ import "./index.css"
 import reportWebVitals from "./reportWebVitals";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
+import Pocket from "./pages/Pocket";
 
 const client = new ApolloClient({
   uri: "https://graphql-pokeapi.graphcdn.app",
@@ -17,6 +18,7 @@ ReactDOM.render(
       <Routes>
         <Route index element={<Home />} />
         <Route path="detail/:name" element={<Details />}></Route>
+        <Route path="pocket" element={<Pocket />}></Route>
       </Routes>
     </BrowserRouter>
   </ApolloProvider>,

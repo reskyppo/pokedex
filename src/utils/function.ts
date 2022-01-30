@@ -37,4 +37,19 @@ const saveLocalStorage = (item: any) => {
   localStorage.setItem("test", JSON.stringify(test));
 }
 
-export {getTypeColor, capitalizeFirstLetter, saveLocalStorage}
+
+const deleteDataLocalStorage = (username: string) => {
+  let test = JSON.parse(localStorage.getItem("test") || "[]");
+  test = test.filter(
+    (item: { username: string }) => item.username !== username
+  );
+  localStorage.setItem("test", JSON.stringify(test));
+  window.location.reload();
+};
+
+export {
+  getTypeColor,
+  capitalizeFirstLetter,
+  saveLocalStorage,
+  deleteDataLocalStorage,
+};
