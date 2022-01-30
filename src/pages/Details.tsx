@@ -226,7 +226,7 @@ const Details = () => {
           css={css`
             margin: 1rem 0rem 0rem 1rem;
           `}
-          onClick={() => navigate("/")}
+          onClick={() => navigate(-1)}
         />
         <img
           css={css`
