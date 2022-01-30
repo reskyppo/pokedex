@@ -18,8 +18,11 @@ import {
 } from "../utils/function";
 const Details = () => {
   const [isCached, setIsCatched] = useState<boolean>(false);
-  const [showMoveList, setShowMoveList] = useState<boolean>(false);
+  const [isSaved, setIsSaved] = useState<boolean>(false);
+  const [isRunning, setIsRunning] = useState<boolean>(false);
   const [isExists, setIsExists] = useState<boolean>(false);
+  const [showMoveList, setShowMoveList] = useState<boolean>(false);
+
   const usernameRef = useRef<HTMLInputElement>(null);
   const { name } = useParams();
   const navigate = useNavigate();
@@ -29,9 +32,10 @@ const Details = () => {
   if (error) return <p>{error?.message}</p>;
   const handleCatchPokemon = () => {
     const value = Math.random();
-    value > 0.5 ? setIsCatched(true) : setIsCatched(false);
-    if (isCached) {
-    }
+    value > 0.5 ? setIsCatched(true) : setIsRunning(true);
+    setTimeout(() => {
+      setIsRunning(false);
+    }, 1500);
   };
   const saveDataPokemon = (data: any) => {
     const dataLS = JSON.parse(localStorage.getItem("test") || "[]");
@@ -44,7 +48,13 @@ const Details = () => {
         setIsExists(true);
       } else {
         data.username = usernameValue;
+        setIsCatched(false);
+        setIsExists(false);
         saveLocalStorage(data);
+        setIsSaved(true);
+        setTimeout(() => {
+          setIsSaved(false);
+        }, 3000);
       }
     }
   };
@@ -131,6 +141,16 @@ const Details = () => {
     padding: 1rem;
     border-radius: 8px;
   `;
+  const Toast = styled.div`
+    position: fixed;
+    top: 1%;
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: black;
+    color: white;
+    padding: 0.5rem;
+    border-radius: 8px;
+  `;
   return (
     <div>
       <Helmet>
@@ -140,21 +160,64 @@ const Details = () => {
         {isCached && (
           <PopUp>
             <PopUpBody>
+              <h3>You caught a {capitalizeFirstLetter(data?.pokemon?.name)}</h3>
               <img
                 css={css`
                   height: 15rem;
                   width: 15rem;
                   margin: auto;
+                  margin-top: -2.5rem;
                   display: block;
                 `}
                 src={data?.pokemon?.sprites?.front_default}
                 alt={data?.pokemon?.name}
               />
-              {isExists && <p>Username already exists</p>}
-              <input type="text" ref={usernameRef} />
-              <button onClick={() => saveDataPokemon(dataL)}>save</button>
+              {isExists && (
+                <p
+                  css={css`
+                    color: red;
+                    font-weight: bold;
+                  `}
+                >
+                  Username already exists
+                </p>
+              )}
+              <input
+                type="text"
+                ref={usernameRef}
+                css={css`
+                  width: 100%;
+                  height: 2rem;
+                  margin: -2rem 0 1rem 0;
+                  border: 2px solid black;
+                `}
+                placeholder="Please enter a username"
+              />
+              <div
+                onClick={() => saveDataPokemon(dataL)}
+                css={css`
+                  width: 100%;
+                  height: 2rem;
+                  padding: 0.25rem;
+                  background-color: white;
+                  border: 1px solid black;
+                  text-align: center;
+                  border-radius: 8px;
+                  font-weight: bold;
+                `}
+              >
+                Add to my pocket
+              </div>
             </PopUpBody>
           </PopUp>
+        )}
+        {isRunning && (
+          <Toast>
+            Oops! {capitalizeFirstLetter(data?.pokemon?.name)} is running away!
+          </Toast>
+        )}
+        {isSaved && (
+          <Toast>{capitalizeFirstLetter(data?.pokemon?.name)} is saved!</Toast>
         )}
         <FontAwesomeIcon
           icon={faArrowLeft}
