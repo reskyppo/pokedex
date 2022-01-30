@@ -1,7 +1,7 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import { useState } from "react";
+import { useState, useRef } from "react";
 import { Helmet } from "react-helmet";
 import { useParams, useNavigate } from "react-router-dom";
 import { useGetPokemonDetails } from "../hooks/useGetPokemonDetails";
@@ -19,17 +19,33 @@ import {
 const Details = () => {
   const [isCached, setIsCatched] = useState<boolean>(false);
   const [showMoveList, setShowMoveList] = useState<boolean>(false);
+  const [isExists, setIsExists] = useState<boolean>(false);
+  const usernameRef = useRef<HTMLInputElement>(null);
   const { name } = useParams();
   const navigate = useNavigate();
   const { data, loading, error } = useGetPokemonDetails(name || "");
   const type = data?.pokemon?.types[0]?.type?.name;
   if (loading) return <p>loading</p>;
   if (error) return <p>{error?.message}</p>;
-  const handleCatchPokemon = (data: any) => {
+  const handleCatchPokemon = () => {
     const value = Math.random();
     value > 0.5 ? setIsCatched(true) : setIsCatched(false);
     if (isCached) {
-      saveLocalStorage(data);
+    }
+  };
+  const saveDataPokemon = (data: any) => {
+    const dataLS = JSON.parse(localStorage.getItem("test") || "[]");
+    if (usernameRef.current !== null) {
+      const usernameValue = usernameRef.current.value;
+      const duplicate = dataLS.filter(
+        (item: any) => item.username === usernameValue
+      ).length;
+      if (duplicate > 0) {
+        setIsExists(true);
+      } else {
+        data.username = usernameValue;
+        saveLocalStorage(data);
+      }
     }
   };
   const dataL = {
@@ -97,12 +113,49 @@ const Details = () => {
     justify-content: space-between;
     align-items: center;
   `;
+  const PopUp = styled.div`
+    position: fixed;
+    width: 100%;
+    height: 100vh;
+    max-width: 640px;
+    margin: auto;
+    background-color: rgba(48, 71, 94, 0.5);
+  `;
+
+  const PopUpBody = styled.div`
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: ${getTypeColor(type)};
+    padding: 1rem;
+    border-radius: 8px;
+  `;
   return (
     <div>
       <Helmet>
         <title>{capitalizeFirstLetter(name || "")} - Pokedex</title>
       </Helmet>
       <Container>
+        {isCached && (
+          <PopUp>
+            <PopUpBody>
+              <img
+                css={css`
+                  height: 15rem;
+                  width: 15rem;
+                  margin: auto;
+                  display: block;
+                `}
+                src={data?.pokemon?.sprites?.front_default}
+                alt={data?.pokemon?.name}
+              />
+              {isExists && <p>Username already exists</p>}
+              <input type="text" ref={usernameRef} />
+              <button onClick={() => saveDataPokemon(dataL)}>save</button>
+            </PopUpBody>
+          </PopUp>
+        )}
         <FontAwesomeIcon
           icon={faArrowLeft}
           size="lg"
@@ -207,9 +260,7 @@ const Details = () => {
         </Body>
       </Container>
       <Footer>
-        <Catch onClick={() => handleCatchPokemon(dataL)}>
-          Catch the Pokemon
-        </Catch>
+        <Catch onClick={handleCatchPokemon}>Catch the Pokemon</Catch>
       </Footer>
     </div>
   );
