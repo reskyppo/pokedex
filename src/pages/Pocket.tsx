@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Helmet } from "react-helmet";
+import Navigation from "../components/Navigation";
 import PocketCard from "../components/PocketCard";
 
 type Props = {};
@@ -12,6 +13,8 @@ const Pocket = (props: Props) => {
     min-height: 100vh;
     max-width: 640px;
     margin: auto;
+    margin-bottom: 60px;
+    padding: 1rem 0rem;
   `;
   const Grid = styled.div`
     display: grid;
@@ -34,6 +37,7 @@ const Pocket = (props: Props) => {
             />
           ))}
         </Grid>
+        <Navigation />
       </Container>
     </>
   );
