@@ -200,10 +200,10 @@ const Details = () => {
                 type="text"
                 ref={usernameRef}
                 css={css`
-                  width: 95%;
+                  width: 96.5%;
                   height: 2rem;
                   margin: -2rem 0 1rem 0;
-                  border: 2px solid black;
+                  border: 1px solid black;
                   padding: 0 0.25rem;
                 `}
                 maxLength={10}
