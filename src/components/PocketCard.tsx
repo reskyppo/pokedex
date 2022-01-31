@@ -34,46 +34,49 @@ const PocketCard = (props: PokemonItem) => {
   `;
 
   return (
-    <Card onClick={() => navigate(`/detail/${name}`)}>
-      <img
-        css={css`
-          height: 7rem;
-          width: 7rem;
-          margin: auto;
-          display: block;
-        `}
-        src={image}
-        alt={name}
-      />
-      <h2
-        css={css`
-          margin: -0.5rem 0rem;
-        `}
-      >
-        {capitalizeFirstLetter(username)}
-      </h2>
-      <p>({capitalizeFirstLetter(name)})</p>
-      <div
-        css={css`
-          display: flex;
-          justify-content: center;
-          margin: 0.75rem 0rem;
-        `}
-      >
-        {types?.map((type: any) => (
-          <div
-            css={css`
-              background-color: ${getTypeColor(type?.type?.name)};
-              margin: 0rem 0.25rem;
-              padding: 0.5rem 0.75rem;
-              border-radius: 8px;
-              border: 2px solid white;
-            `}
-          >
-            {capitalizeFirstLetter(type?.type?.name)}
-          </div>
-        ))}
+    <Card>
+      <div onClick={() => navigate(`/detail/${name}`)}>
+        <img
+          css={css`
+            height: 7rem;
+            width: 7rem;
+            margin: auto;
+            display: block;
+          `}
+          src={image}
+          alt={name}
+        />
+        <h2
+          css={css`
+            margin: -0.5rem 0rem;
+          `}
+        >
+          {capitalizeFirstLetter(username)}
+        </h2>
+        <p>({capitalizeFirstLetter(name)})</p>
+        <div
+          css={css`
+            display: flex;
+            justify-content: center;
+            margin: 0.75rem 0rem;
+          `}
+        >
+          {types?.map((type: any) => (
+            <div
+              css={css`
+                background-color: ${getTypeColor(type?.type?.name)};
+                margin: 0rem 0.25rem;
+                padding: 0.5rem 0.75rem;
+                border-radius: 8px;
+                border: 2px solid white;
+              `}
+            >
+              {capitalizeFirstLetter(type?.type?.name)}
+            </div>
+          ))}
+        </div>
       </div>
+
       <Release onClick={() => deleteDataLocalStorage(username)}>
         Release Pokemon
       </Release>
