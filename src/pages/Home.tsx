@@ -67,7 +67,7 @@ const Home = () => {
             <h4>Load More</h4>
           </LoadMore>
         )}
-        <Navigation />
+        <Navigation isHome />
       </Container>
     </div>
   );

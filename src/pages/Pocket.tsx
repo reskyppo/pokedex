@@ -42,7 +42,7 @@ const Pocket = (props: Props) => {
         ) : (
           <Loading msg="Oops! You didn't caught any pokemons yet." btnText="Find the pokemons"/>
         )}
-        <Navigation />
+        <Navigation isPocket/>
       </Container>
     </>
   );

@@ -1,11 +1,16 @@
 /** @jsxImportSource @emotion/react */
 import { css } from "@emotion/react";
 import styled from "@emotion/styled";
-import Pokeball from "../assets/pokeball-icon.png";
-import Bag from "../assets/bag-icon.png";
-import { Link, useNavigate } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
-const Navigation = () => {
+import Bag from "../assets/bag-icon.png";
+import Pokeball from "../assets/pokeball-icon.png";
+
+type Props = {
+  isHome?: boolean;
+  isPocket?: boolean;
+};
+const Navigation = (props: Props) => {
   const navigate = useNavigate();
 
   const Container = styled.div`
@@ -21,7 +26,6 @@ const Navigation = () => {
     padding: 1rem 0rem;
     display: flex;
     border-top: 1px solid #d3dedc;
-    background-color: #fff;
     align-items: center;
   `;
   const Box = styled.div`
@@ -30,25 +34,37 @@ const Navigation = () => {
     flex-direction: column;
     justify-content: center;
     align-items: center;
-    margin-top: 1rem;
+    padding-top: 0.5rem;
   `;
 
   return (
     <Container>
-      <Box onClick={() => navigate("/")}>
-        <Link to="/">
-          <img
-            width="40"
-            css={css`
-              margin-bottom: -1rem;
-            `}
-            src={Pokeball}
-            alt="Pokeball"
-          />
-          <p>Home</p>
-        </Link>
+      <Box
+        onClick={() => navigate("/")}
+        css={css`
+          ${props.isHome
+            ? "background-color: #FFCC01"
+            : "background-color: #FFFFFF"};
+        `}
+      >
+        <img
+          width="40"
+          css={css`
+            margin-bottom: -1rem;
+          `}
+          src={Pokeball}
+          alt="Pokeball"
+        />
+        <p>Home</p>
       </Box>
-      <Box onClick={() => navigate("/pocket")}>
+      <Box
+        onClick={() => navigate("/pocket")}
+        css={css`
+          ${props.isPocket
+            ? "background-color: #FFCC01"
+            : "background-color: #FFFFFF"};
+        `}
+      >
         <img
           width="40"
           css={css`
