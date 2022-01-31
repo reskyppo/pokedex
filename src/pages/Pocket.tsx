@@ -1,5 +1,6 @@
 import styled from "@emotion/styled";
 import { Helmet } from "react-helmet";
+import Loading from "../components/Loading";
 import Navigation from "../components/Navigation";
 import PocketCard from "../components/PocketCard";
 
@@ -27,16 +28,20 @@ const Pocket = (props: Props) => {
         <title>My Pocket - Pokedex</title>
       </Helmet>
       <Container>
-        <Grid>
-          {dataLS.map((data: any) => (
-            <PocketCard
-              name={data.name}
-              image={data.sprites}
-              username={data.username}
-              types={data.types}
-            />
-          ))}
-        </Grid>
+        {dataLS.length > 0 ? (
+          <Grid>
+            {dataLS.map((data: any) => (
+              <PocketCard
+                name={data.name}
+                image={data.sprites}
+                username={data.username}
+                types={data.types}
+              />
+            ))}
+          </Grid>
+        ) : (
+          <Loading msg="Oops! You didn't caught any pokemons yet." btnText="Find the pokemons"/>
+        )}
         <Navigation />
       </Container>
     </>
