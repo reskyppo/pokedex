@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import Pocket from "../../pages/Pocket";
 
 describe("Pocket Page", () => {
-  test("Empty list handler should be shown", async () => {
+  test("Empty list handler should be shown", () => {
     render(
       <BrowserRouter>
         <Pocket />
@@ -19,7 +19,7 @@ describe("Pocket Page", () => {
     expect(linkElement).toBeInTheDocument();
   });
 
-  test("Button redirect should be shown", async () => {
+  test("Button redirect should be shown", () => {
     render(
       <BrowserRouter>
         <Pocket />

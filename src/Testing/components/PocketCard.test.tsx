@@ -2,27 +2,9 @@ import { fireEvent, render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 
 import PocketCard from "../../components/PocketCard";
+import { bulbasaur } from "../mock";
 
 describe("PocketCard Component", () => {
-  const bulbasaur = {
-    username: "Bul bul",
-    name: "Bulbasaur",
-    image:
-      "https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/1.png",
-    types: [
-      {
-        type: {
-          name: "Grass",
-        },
-      },
-      {
-        type: {
-          name: "Poison",
-        },
-      },
-    ],
-  };
-
   test("Image should be shown", () => {
     render(
       <BrowserRouter>
