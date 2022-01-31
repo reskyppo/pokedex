@@ -4,7 +4,7 @@ import { BrowserRouter } from "react-router-dom";
 import NotFound from "../../pages/NotFound";
 
 describe("404 NotFound Page", () => {
-  test("Image gif should not be shown", () => {
+  test("Image gif should be shown", () => {
     render(
       <BrowserRouter>
         <NotFound />
