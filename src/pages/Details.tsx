@@ -38,7 +38,7 @@ const Details = () => {
     }, 1500);
   };
   const saveDataPokemon = (data: any) => {
-    const dataLS = JSON.parse(localStorage.getItem("test") || "[]");
+    const dataLS = JSON.parse(localStorage.getItem("prod") || "[]");
     if (usernameRef.current !== null) {
       const usernameValue = usernameRef.current.value;
       const duplicate = dataLS.filter(

@@ -7,7 +7,7 @@ import PocketCard from "../components/PocketCard";
 type Props = {};
 
 const Pocket = (props: Props) => {
-  const dataLS = JSON.parse(localStorage.getItem("test") || "[]");
+  const dataLS = JSON.parse(localStorage.getItem("prod") || "[]");
 
   const Container = styled.div`
     background-color: #fff;
