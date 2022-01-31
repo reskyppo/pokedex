@@ -34,12 +34,12 @@ const Home = () => {
   `;
   const LoadMore = styled.div`
     width: 20rem;
-    border: 1px solid #f47340;
+    border: 1px solid #FFCC01;
     border-radius: 6px;
-    color: #f47340;
     text-align: center;
     margin: 0.5rem auto;
     cursor: pointer;
+    padding: 0.5rem;
   `;
 
   return (
@@ -64,7 +64,7 @@ const Home = () => {
               localStorage.setItem("pagination", JSON.stringify(limit + 20));
             }}
           >
-            <h4>Load More</h4>
+            Load More
           </LoadMore>
         )}
         <Navigation isHome />
