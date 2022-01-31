@@ -200,7 +200,7 @@ const Details = () => {
                 type="text"
                 ref={usernameRef}
                 css={css`
-                  width: 100%;
+                  width: 95%;
                   height: 2rem;
                   margin: -2rem 0 1rem 0;
                   border: 2px solid black;
