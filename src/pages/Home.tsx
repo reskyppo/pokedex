@@ -49,8 +49,9 @@ const Home = () => {
       </Helmet>
       <Container>
         <Grid>
-          {sliceData?.map((result: PokemonItem) => (
+          {sliceData?.map((result: PokemonItem, index: number) => (
             <PokemonCard
+              key={index}
               name={result?.name}
               image={result?.image}
               url={result?.url}
