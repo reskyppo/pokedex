@@ -1,11 +1,12 @@
 import { ApolloClient, ApolloProvider, InMemoryCache } from "@apollo/client";
 import ReactDOM from "react-dom";
 import { BrowserRouter, Route, Routes } from "react-router-dom";
-import "./index.css"
+import "./index.css";
 import reportWebVitals from "./reportWebVitals";
 import Home from "./pages/Home";
 import Details from "./pages/Details";
 import Pocket from "./pages/Pocket";
+import NotFound from "./pages/NotFound";
 
 const client = new ApolloClient({
   uri: "https://graphql-pokeapi.graphcdn.app",
@@ -19,6 +20,7 @@ ReactDOM.render(
         <Route index element={<Home />} />
         <Route path="detail/:name" element={<Details />}></Route>
         <Route path="pocket" element={<Pocket />}></Route>
+        <Route path="*" element={<NotFound />}></Route>
       </Routes>
     </BrowserRouter>
   </ApolloProvider>,
