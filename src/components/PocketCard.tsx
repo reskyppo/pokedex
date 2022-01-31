@@ -1,9 +1,13 @@
 /** @jsxImportSource @emotion/react */
-import { css } from '@emotion/react';
-import styled from '@emotion/styled';
-import { useNavigate } from 'react-router-dom';
+import { css } from "@emotion/react";
+import styled from "@emotion/styled";
+import { useNavigate } from "react-router-dom";
 
-import { capitalizeFirstLetter, deleteDataLocalStorage, getTypeColor } from '../utils/function';
+import {
+  capitalizeFirstLetter,
+  deleteDataLocalStorage,
+  getTypeColor,
+} from "../utils/function";
 
 type PokemonItem = {
   name: string;
@@ -35,7 +39,10 @@ const PocketCard = (props: PokemonItem) => {
 
   return (
     <Card>
-      <div onClick={() => navigate(`/detail/${name}`)}>
+      <div
+        data-testid="div-navigate"
+        onClick={() => navigate(`/detail/${name}`)}
+      >
         <img
           css={css`
             height: 7rem;
@@ -61,8 +68,9 @@ const PocketCard = (props: PokemonItem) => {
             margin: 0.75rem 0rem;
           `}
         >
-          {types?.map((type: any) => (
+          {types?.map((type: any, index: number) => (
             <div
+              key={index}
               css={css`
                 background-color: ${getTypeColor(type?.type?.name)};
                 margin: 0rem 0.25rem;
