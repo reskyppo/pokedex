@@ -22,7 +22,7 @@ const Navigation = (props: Props) => {
     @media (min-width: 640px) {
       width: 640px;
     }
-    height: 44px;
+    height: 24px;
     padding: 1rem 0rem;
     display: flex;
     border-top: 1px solid #d3dedc;
@@ -48,7 +48,7 @@ const Navigation = (props: Props) => {
         `}
       >
         <img
-          width="40"
+          width="20"
           css={css`
             margin-bottom: -1rem;
           `}
@@ -66,7 +66,7 @@ const Navigation = (props: Props) => {
         `}
       >
         <img
-          width="40"
+          width="20"
           css={css`
             margin-bottom: -1rem;
           `}

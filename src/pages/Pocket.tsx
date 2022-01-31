@@ -14,8 +14,10 @@ const Pocket = (props: Props) => {
     min-height: 100vh;
     max-width: 640px;
     margin: auto;
-    margin-bottom: 60px;
-    padding: 1rem 0rem;
+    margin-bottom: 20px;
+    @media (min-width: 640px) {
+      margin-bottom: 0;
+    }
   `;
   const Grid = styled.div`
     display: grid;
@@ -40,9 +42,12 @@ const Pocket = (props: Props) => {
             ))}
           </Grid>
         ) : (
-          <Loading msg="Oops! You didn't caught any pokemons yet." btnText="Find the pokemons"/>
+          <Loading
+            msg="Oops! You didn't caught any pokemons yet."
+            btnText="Find the pokemons"
+          />
         )}
-        <Navigation isPocket/>
+        <Navigation isPocket />
       </Container>
     </>
   );
