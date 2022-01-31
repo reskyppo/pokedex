@@ -140,6 +140,7 @@ const Details = () => {
     background-color: ${getTypeColor(type)};
     padding: 1rem;
     border-radius: 8px;
+    text-align: center;
   `;
   const Toast = styled.div`
     position: fixed;
@@ -151,6 +152,19 @@ const Details = () => {
     padding: 0.5rem;
     border-radius: 8px;
   `;
+  const ButtonSave = styled.div`
+    width: 100%;
+    height: 2rem;
+    padding: 0.55rem 0 0 0;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 8px;
+    font-weight: bold;
+    display : flex
+    justify-content: center
+    align-items: center
+  `;
+
   return (
     <div>
       <Helmet>
@@ -190,24 +204,14 @@ const Details = () => {
                   height: 2rem;
                   margin: -2rem 0 1rem 0;
                   border: 2px solid black;
+                  padding: 0 0.25rem;
                 `}
+                maxLength={10}
                 placeholder="Please enter a username"
               />
-              <div
-                onClick={() => saveDataPokemon(dataL)}
-                css={css`
-                  width: 100%;
-                  height: 2rem;
-                  padding: 0.25rem;
-                  background-color: white;
-                  border: 1px solid black;
-                  text-align: center;
-                  border-radius: 8px;
-                  font-weight: bold;
-                `}
-              >
+              <ButtonSave onClick={() => saveDataPokemon(dataL)}>
                 Add to my pocket
-              </div>
+              </ButtonSave>
             </PopUpBody>
           </PopUp>
         )}
