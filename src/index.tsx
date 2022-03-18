@@ -7,6 +7,8 @@ import Home from "./pages/Home";
 import Details from "./pages/Details";
 import Pocket from "./pages/Pocket";
 import NotFound from "./pages/NotFound";
+import { PokemonProvider } from "./context/PokemonContext";
+import Test from "./pages/Test";
 
 const client = new ApolloClient({
   uri: "https://graphql-pokeapi.graphcdn.app",
@@ -15,14 +17,17 @@ const client = new ApolloClient({
 
 ReactDOM.render(
   <ApolloProvider client={client}>
-    <BrowserRouter>
-      <Routes>
-        <Route index element={<Home />} />
-        <Route path="detail/:name" element={<Details />}></Route>
-        <Route path="pocket" element={<Pocket />}></Route>
-        <Route path="*" element={<NotFound />}></Route>
-      </Routes>
-    </BrowserRouter>
+    <PokemonProvider>
+      <BrowserRouter>
+        <Routes>
+          <Route index element={<Home />} />
+          <Route path="detail/:name" element={<Details />}></Route>
+          <Route path="pocket" element={<Pocket />}></Route>
+          <Route path="test" element={<Test />}></Route>
+          <Route path="*" element={<NotFound />}></Route>
+        </Routes>
+      </BrowserRouter>
+    </PokemonProvider>
   </ApolloProvider>,
   document.getElementById("root")
 );
